@@ -15,5 +15,5 @@ type Comments struct {
 }
 
 func (m *Comments) TableName() string {
-	return "xinmusic_comments"
+	return "comments"
 }

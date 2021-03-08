@@ -3,6 +3,7 @@ package apps
 import (
 	"blog_comment/entity"
 	"blog_comment/service"
+	"blog_comment/vo"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -21,16 +22,16 @@ func CommentGet(c *gin.Context) {
 
 // 添加评论
 func CommentAdd(c *gin.Context) {
-	//var addVo vo.AddCommentVo
-	//err := c.ShouldBind(&addVo)
-	//if err != nil {
-	//	c.JSON(http.StatusInternalServerError, entity.ResError(""))
-	//} else {
-	//	c.JSON(http.StatusOK, service.AddComment(&addVo))
-	//}
-	c.JSON(http.StatusOK,gin.H{
-		"username": "57",
-	})
+	var addVo vo.AddCommentVo
+	err := c.ShouldBind(&addVo)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, entity.ResError(""))
+	} else {
+		c.JSON(http.StatusOK, service.AddComment(&addVo))
+	}
+	//c.JSON(http.StatusOK,gin.H{
+	//	"username": "57",
+	//})
 }
 
 // 点赞

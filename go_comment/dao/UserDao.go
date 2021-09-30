@@ -3,6 +3,7 @@ package dao
 import (
 	"blog_comment/database"
 	"blog_comment/entity"
+	"blog_comment/util"
 )
 
 func InitUser(userEntity *entity.UserEntity) string {
@@ -24,5 +25,6 @@ func GetUserInfo(uuid string) *entity.UserEntity {
 	db := database.GetMysqlDb()
 	var userEntity entity.UserEntity
 	db.Raw("select * from base_user where uuid = ?", uuid).Scan(&userEntity)
+	userEntity.CreateTime = util.TimParse(&userEntity.CreateTime)
 	return &userEntity
 }

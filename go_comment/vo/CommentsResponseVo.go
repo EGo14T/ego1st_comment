@@ -6,5 +6,5 @@ import (
 
 type CommentsResponseVo struct {
 	ReplyComments  *entity.Comments `json:"replyComments"`
-	OriginComments *entity.Comments	`json:"originComments"`
+	OriginComments *entity.Comments `json:"originComments"`
 }

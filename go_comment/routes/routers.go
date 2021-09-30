@@ -19,5 +19,6 @@ func InitRouter() *gin.Engine {
 	// 用户模块
 	r.GET("/uuid/get", apps.CommentUuidGet)
 	r.GET("/getUserInfo/:uuid", apps.UserInfoGet)
+
 	return r
 }

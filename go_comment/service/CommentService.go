@@ -38,10 +38,12 @@ func QueryComments(showId string) *[]vo.CommentsResponseVo {
 	return &res
 }
 
-func QueryComment(commentID string) *entity.Comments {
-	comment := dao.Query(commentID)
-	comment.CreateTime = util.TimParse(&comment.CreateTime)
-	return comment
+func QueryComment(commentID string) (*entity.Comments, error) {
+	comment, err := dao.Query(commentID)
+	if comment != nil {
+		comment.CreateTime = util.TimParse(&comment.CreateTime)
+	}
+	return comment, err
 }
 
 func AddComment(comment *vo.AddCommentVo) string {
@@ -65,6 +67,6 @@ func AddComment(comment *vo.AddCommentVo) string {
 	return dao.Insert(&commentAdd)
 }
 
-func LikeComment(commentID string) string{
+func LikeComment(commentID string) string {
 	return dao.LikeComment(commentID)
 }

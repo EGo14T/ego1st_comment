@@ -52,6 +52,6 @@ func (w *Worker) GetId() string {
 		w.timestamp = now
 	}
 	ID := int64((now-startTime)<<timeShift | (w.workerId << workerShift) | (w.number))
-	IDstr := strconv.FormatInt(ID,10)
+	IDstr := strconv.FormatInt(ID, 10)
 	return IDstr
 }

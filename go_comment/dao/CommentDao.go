@@ -3,6 +3,7 @@ package dao
 import (
 	"blog_comment/database"
 	"blog_comment/entity"
+	"errors"
 )
 
 func QueryAll(showId string) *[]entity.Comments {
@@ -21,20 +22,24 @@ func QueryAll(showId string) *[]entity.Comments {
 	return &comments
 }
 
-func Query(commentID string) *entity.Comments {
+func Query(commentID string) (*entity.Comments, error) {
 	db := database.GetMysqlDb()
 	var comment entity.Comments
 
-	db.Raw(
+	scan := db.Raw(
 		"SELECT a.*,"+
 			"b.nickname, "+
 			"b.avatar "+
 			"FROM comments a "+
 			"LEFT JOIN base_user b "+
 			"ON "+
-			"b.userid = a.from_user_id "+
+			"b.uuid = a.from_user_id "+
 			"WHERE a.id = ?", commentID).Scan(&comment)
-	return &comment
+
+	if scan.RowsAffected == 0 {
+		return nil, errors.New("查询数据为空")
+	}
+	return &comment, nil
 }
 
 func Insert(comment *entity.Comments) string {

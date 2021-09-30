@@ -52,9 +52,7 @@ func GetMysqlInstance() *ConnectPool {
 	return mysqlInstance
 }
 
-/*
-* @fuc  对外获取数据库连接对象db
- */
+// GetMysqlPool /*
 func (m *ConnectPool) GetMysqlPool() *gorm.DB {
 	//db.LogMode(true)
 	return db
